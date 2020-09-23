@@ -1,9 +1,9 @@
 {
   "version": "0.1.0",
-  "name": "istok-example-source-firebase",
+  "name": "istok-example-source-filesystem",
   "author": "Alexander \"Snov\" Semenchenko",
   "main": "dist/index.js",
-  "module": "dist/source-firebase.esm.js",
+  "module": "dist/istok-example-source-filesystem.esm.js",
   "typings": "dist/index.d.ts",
   "files": [
     "dist",
@@ -12,7 +12,7 @@
   "repository": {
     "type": "git",
     "url": "git://github.com/1st0k/examples.git",
-    "directory": "examples/source-firebase"
+    "directory": "examples/source-filesystem"
   },
   "engines": {
     "node": ">=10"
