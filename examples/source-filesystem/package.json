@@ -40,6 +40,6 @@
     "registry": "https://registry.npmjs.org"
   },
   "dependencies": {
-    "@istok/source-filesystem": "^0.2.0"
+    "@istok/source-filesystem": "^0.4.1"
   }
 }

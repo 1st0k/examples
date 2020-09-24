@@ -862,21 +862,21 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@istok/core@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@istok/core/-/core-0.3.0.tgz#1230216064a5665ccf0b7deaa520f7b2ab5ba741"
-  integrity sha512-cH7rMHilj8wpzMAwPsSPE0chDqFa8+K8DgbwV9C47AtCSNeCqxrvrsCbIRT5l3aVqLRZsk1cJXAfkFOYOKuTMg==
+"@istok/core@^0.5.1":
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/@istok/core/-/core-0.5.1.tgz#22e3043820822b122a0395d214ec3c1ca608ba6a"
+  integrity sha512-nlBfMbLFH7Q/30Ux2brVOeSTdXLRsqc4EkhL7BC/m5REua+z7yATHvwDWLD0zltAlVH0aqLWRqC/mwi9DpNA/g==
   dependencies:
     "@istok/utils" "^0.1.2"
     "@types/ramda" "^0.27.17"
     ramda "^0.27.1"
 
-"@istok/source-filesystem@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@istok/source-filesystem/-/source-filesystem-0.2.0.tgz#649c1a74f8511f94600d246aa0140536ff7e364e"
-  integrity sha512-AYaH6K92EEdOoWHr8QE1mFd+pmEmOzgcxgfRijN6+r+xLC2k6PmI+p3sz73AHk28DfDcsEg5GJbZm7TMleNGYw==
+"@istok/source-filesystem@^0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@istok/source-filesystem/-/source-filesystem-0.4.1.tgz#24adf3c2c932cd74b8f58da08514013bac1b0991"
+  integrity sha512-gpRPuzW4BlUnX+B72tDPvOL29RlLZUHWFYkqEIIxzlRxo5qWl8LDCgvYRGWU4NfIEYQgASg8maF1TzHmAVpiUw==
   dependencies:
-    "@istok/core" "^0.3.0"
+    "@istok/core" "^0.5.1"
     "@types/klaw" "^3.0.1"
     chokidar "^3.4.2"
     fs-extra "^9.0.1"
