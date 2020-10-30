@@ -1,38 +1,49 @@
 import Head from "next/head";
 import { GetStaticProps } from "next";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 import Layout, { siteTitle } from "../components/layout";
 import utilStyles from "../styles/utils.module.css";
-import { getSortedPostsData } from "../lib/posts";
-import Link from "next/link";
 import Date from "../components/date";
+import {
+  fetchPosts,
+  getPostMetadata,
+  slugFromId,
+  source,
+} from "../lib/data-loader";
 
 export type HomeProps = {
   allPostsData: {
     id: string;
-    date: string;
-    title: string;
+    content: string;
+    metadata: {
+      date: string;
+      title: string;
+    };
   }[];
 };
 
 export default function Home({ allPostsData }: HomeProps) {
+  const router = useRouter();
+  const { locale, locales, defaultLocale } = router;
+
   return (
     <Layout home>
       <>
         <Head>
           <title>{siteTitle}</title>
         </Head>
+        <p>Current locale: {locale}</p>
+        <p>Default locale: {defaultLocale}</p>
+        <p>Configured locales: {JSON.stringify(locales)}</p>
         <section className={utilStyles.headingMd}>
           <p>This blog is made with istok!</p>
-          <p>
-            (This is a sample website - you’ll be building a site like this in{" "}
-            <a href="https://nextjs.org/learn">our Next.js tutorial</a>.)
-          </p>
         </section>
         <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
           <h2 className={utilStyles.headingLg}>Blog</h2>
           <ul className={utilStyles.list}>
-            {allPostsData.map(({ id, date, title }) => (
+            {allPostsData.map(({ id, metadata: { date, title } }) => (
               <li className={utilStyles.listItem} key={id}>
                 <Link href={`/posts/${id}`}>
                   <a>{title}</a>
@@ -50,11 +61,21 @@ export default function Home({ allPostsData }: HomeProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async function getStaticProps() {
-  const allPostsData = getSortedPostsData();
+export const getStaticProps: GetStaticProps = async function getStaticProps({
+  locales,
+  locale,
+  defaultLocale,
+}) {
+  const posts = await fetchPosts(source, locale ?? defaultLocale ?? "en");
+  const metadata = await Promise.all(posts.map(getPostMetadata));
+
   return {
     props: {
-      allPostsData,
+      allPostsData: metadata.map(({ metadata, id, content }) => ({
+        metadata,
+        content,
+        id: slugFromId(id).join("/"),
+      })),
     },
   };
 };
