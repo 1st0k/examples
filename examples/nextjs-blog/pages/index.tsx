@@ -13,6 +13,7 @@ import {
   source,
 } from "../lib/data-loader";
 
+
 export type HomeProps = {
   allPostsData: {
     id: string;

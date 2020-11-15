@@ -10,13 +10,17 @@ import {
   getAllPostsParams,
   getPostMetadata,
   getResourceIdFromParams,
-  htmlFromMarkdown,
   source,
 } from "../../lib/data-loader";
+
+import { render } from "@istok/mdx-compile";
+import { useHydrate } from "@istok/mdx-render";
 
 export type PostProps = {
   slug: string;
   postData: {
+    compiledSource: string;
+    scope: any;
     metadata: {
       date: string;
       title: string;
@@ -26,7 +30,7 @@ export type PostProps = {
 };
 
 export default function Post(props: PostProps) {
-  console.log("post page props", props);
+  console.log("post page slug", props.slug);
 
   const { isFallback } = useRouter();
 
@@ -35,7 +39,17 @@ export default function Post(props: PostProps) {
   }
 
   const { postData } = props;
-  const { metadata, contentHtml } = postData;
+  const { metadata, contentHtml, compiledSource, scope } = postData;
+
+  const content = useHydrate(
+    {
+      compiledSource,
+      contentHtml,
+      scope,
+    },
+    {},
+    { element: "div" }
+  );
 
   return (
     <Layout>
@@ -48,7 +62,7 @@ export default function Post(props: PostProps) {
           <div className={utilStyles.lightText}>
             <Date dateString={metadata.date} />
           </div>
-          <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
+          {content}
         </article>
       </>{" "}
     </Layout>
@@ -74,12 +88,15 @@ export const getStaticProps: GetStaticProps = async function getStaticProps({
   const data = await fetchPost(getResourceIdFromParams(slug, locale));
 
   const { metadata, content } = await getPostMetadata(data.resource);
-  const contentHtml = await htmlFromMarkdown(content);
+
+  const { compiledSource, contentHtml, scope } = await render(content);
 
   return {
     props: {
       slug: params.slug,
       postData: {
+        compiledSource,
+        scope,
         metadata,
         contentHtml,
       },

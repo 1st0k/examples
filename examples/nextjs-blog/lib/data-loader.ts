@@ -1,7 +1,5 @@
 import path from "path";
 import matter from "gray-matter";
-import remark from "remark";
-import html from "remark-html";
 import { createFilesystemSource } from "@istok/source-filesystem";
 import {
   UniformFiniteSource,
@@ -27,7 +25,7 @@ export function localeFromId(id: string) {
 export function slugFromId(id: string) {
   const slug = id
     .split("/")
-    .filter((part) => !(part.includes("en") || part.includes("ru")));
+    .filter((part) => !part.includes("en") && !part.includes("ru"));
 
   return slug;
 }
@@ -98,11 +96,4 @@ export async function getPostMetadata(post: Post) {
     content,
     id: post.id,
   };
-}
-
-export async function htmlFromMarkdown(markdown: string) {
-  const processedContent = await remark().use(html).process(markdown);
-  const contentHtml = processedContent.toString();
-
-  return contentHtml;
 }
