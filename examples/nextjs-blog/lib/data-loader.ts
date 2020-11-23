@@ -42,8 +42,8 @@ export async function getAllPostsParams(
   const paths = list.resources.map((r) => ({
     params: {
       slug: slugFromId(r.id),
-      locale: localeFromId(r.id),
     },
+    locale: localeFromId(r.id),
   }));
 
   console.log(
