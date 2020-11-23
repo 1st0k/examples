@@ -13,7 +13,6 @@ import {
   source,
 } from "../lib/data-loader";
 
-
 export type HomeProps = {
   allPostsData: {
     id: string;
@@ -63,7 +62,7 @@ export default function Home({ allPostsData }: HomeProps) {
 }
 
 export const getStaticProps: GetStaticProps = async function getStaticProps({
-  locales,
+  // locales,
   locale,
   defaultLocale,
 }) {
