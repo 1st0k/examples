@@ -110,7 +110,7 @@ export const getStaticProps: GetStaticProps = async function getStaticProps({
     const data = await fetchPost(getResourceIdFromParams(slug, locale));
 
     const { metadata, content } = await getPostMetadata(data.resource);
-    const componentsToLoad: string[] = metadata.components.split(",");
+    const componentsToLoad: string[] = (metadata.components ?? "").split(",");
 
     const { compiledSource, contentHtml, scope } = await render(content, {
       promisedComponents: makeAsyncComponentsMap(componentsToLoad),
