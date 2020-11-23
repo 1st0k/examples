@@ -30,7 +30,9 @@ export type PostProps = {
 };
 
 export default function Post(props: PostProps) {
-  console.log("post page slug", props.slug);
+  if (!props.slug) {
+    return "unknown slug";
+  }
 
   const { isFallback } = useRouter();
 
@@ -85,21 +87,30 @@ export const getStaticProps: GetStaticProps = async function getStaticProps({
   }
 
   const slug = params.slug as string[];
-  const data = await fetchPost(getResourceIdFromParams(slug, locale));
+  console.log("\nget data for ", slug, locale);
 
-  const { metadata, content } = await getPostMetadata(data.resource);
+  try {
+    const data = await fetchPost(getResourceIdFromParams(slug, locale));
 
-  const { compiledSource, contentHtml, scope } = await render(content);
+    const { metadata, content } = await getPostMetadata(data.resource);
 
-  return {
-    props: {
-      slug: params.slug,
-      postData: {
-        compiledSource,
-        scope,
-        metadata,
-        contentHtml,
+    const { compiledSource, contentHtml, scope } = await render(content);
+
+    return {
+      props: {
+        slug: params.slug,
+        postData: {
+          compiledSource,
+          scope,
+          metadata,
+          contentHtml,
+        },
       },
-    },
-  };
+    };
+  } catch (e) {
+    // do not prerender failed to be fetched post
+    return {
+      notFound: true,
+    };
+  }
 };

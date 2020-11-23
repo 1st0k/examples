@@ -45,8 +45,9 @@ export async function getAllPostsParams(
       locale: localeFromId(r.id),
     },
   }));
+
   console.log(
-    "all posts:\n",
+    "\nall posts:\n",
     paths.map((p) => p.params),
     "\n"
   );
