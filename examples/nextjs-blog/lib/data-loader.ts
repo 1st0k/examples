@@ -16,8 +16,8 @@ export const source = createFilesystemSource<string>({
 });
 
 export function localeFromId(id: string) {
-  const [, filename] = id.split("/");
-  const [locale] = (filename ?? "").split(".");
+  const parts = id.split("/");
+  const [locale] = parts[parts.length - 1].split(".");
 
   return locale || "en";
 }
@@ -45,6 +45,11 @@ export async function getAllPostsParams(
       locale: localeFromId(r.id),
     },
   }));
+  console.log(
+    "all posts:\n",
+    paths.map((p) => p.params),
+    "\n"
+  );
 
   return paths;
 }
