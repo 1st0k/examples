@@ -1036,21 +1036,21 @@
     "@types/ramda" "^0.27.17"
     ramda "^0.27.1"
 
-"@istok/mdx-compile@^0.2.6":
-  version "0.2.6"
-  resolved "https://registry.yarnpkg.com/@istok/mdx-compile/-/mdx-compile-0.2.6.tgz#37207b5734102752b984945532d9ed101b975574"
-  integrity sha512-9+8bbI8D3MJL/Y2pCWJ+e6lxcx7kpPZEH70SzNv9GwtR5zWcPG3bxTzFpjixV1eiJ72Kdn7OTMutvegyVQj4Cw==
+"@istok/mdx-compile@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@istok/mdx-compile/-/mdx-compile-0.3.0.tgz#18476947f88d52629aedabb852d872dc81d60561"
+  integrity sha512-6BiKx9my7KFqPKMdCdIuEh5epJd53O52Gnw8DcgIlTuLo6+zjejChDIrCx/XJ7aGsGQ0dXt+Z6xpjHAZ0/k+og==
   dependencies:
     "@babel/core" "^7.12.3"
     "@babel/preset-env" "^7.12.1"
     "@babel/preset-react" "^7.12.5"
-    "@istok/mdx-render" "^0.6.6"
+    "@istok/mdx-render" "^0.7.0"
     "@mdx-js/mdx" "^1.6.21"
 
-"@istok/mdx-render@^0.6.6":
-  version "0.6.6"
-  resolved "https://registry.yarnpkg.com/@istok/mdx-render/-/mdx-render-0.6.6.tgz#396bcb539e520cf717b0b7d340a758fc1bec9e5a"
-  integrity sha512-tX6Je+4yZD25haMdKHXRipHfir6R3Etbv6RRQjbi64VD5eEd7/lMgUmrL1wW41ma3GVFcKfylzwPwHSDeLOvbg==
+"@istok/mdx-render@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@istok/mdx-render/-/mdx-render-0.7.0.tgz#7284c03f8eab1b025cc200f12f82b52162f12af5"
+  integrity sha512-D1Y4FmVK4nR0v/8SzlumxsJl0F6OvjGDq2uVCU6iKRtB9+PK3kpVtiR3mJlgUxYRpsQslx9Ij/K32IGYPsn5+g==
   dependencies:
     "@istok/utils" "^0.1.4"
     "@mdx-js/react" "^1.6.21"

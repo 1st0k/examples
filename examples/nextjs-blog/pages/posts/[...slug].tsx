@@ -14,8 +14,7 @@ import {
 } from "../../lib/data-loader";
 
 import { render } from "@istok/mdx-compile";
-import { useHydrate } from "@istok/mdx-render";
-import { AsyncComponentsLoadConfig } from "@istok/mdx-render/dist/load-components";
+import { useHydrate, makeComponentsLoader } from "@istok/mdx-render";
 
 export type PostProps = {
   slug: string;
@@ -30,20 +29,6 @@ export type PostProps = {
     contentHtml: string;
   };
 };
-
-function makeAsyncComponentsMap(names: string[]) {
-  return names.reduce<AsyncComponentsLoadConfig>((acc, curr) => {
-    acc[curr] = () =>
-      import("../../components/load/" + curr).then((m) => m.default);
-
-    return acc;
-  }, {});
-}
-
-// const promisedComponents = {
-//   AsyncComponent: () =>
-//     import("../../components/async-test").then((m) => m.default),
-// };
 
 export default function Post(props: PostProps) {
   if (!props.slug) {
@@ -66,7 +51,10 @@ export default function Post(props: PostProps) {
       scope,
     },
     {
-      promisedComponents: makeAsyncComponentsMap(props.postData.components),
+      promisedComponents: makeComponentsLoader(
+        props.postData.components,
+        (component) => import("../../components/load/" + component)
+      ),
     },
     { element: "div" }
   );
@@ -115,7 +103,10 @@ export const getStaticProps: GetStaticProps = async function getStaticProps({
       .filter((s: string) => s.length);
 
     const { compiledSource, contentHtml, scope } = await render(content, {
-      promisedComponents: makeAsyncComponentsMap(componentsToLoad),
+      promisedComponents: makeComponentsLoader(
+        componentsToLoad,
+        (component) => import("../../components/load/" + component)
+      ),
     });
 
     return {
