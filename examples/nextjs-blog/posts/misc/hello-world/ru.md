@@ -1,8 +1,9 @@
 ---
 title: "Привет мир"
 date: "2020-01-01"
+components: AsyncComponent
 ---
 
 # Привет мир
 
-kekw
+<AsyncComponent>Я реакт компонент, загруженный асинхронно для этого блог поста!</AsyncComponent>

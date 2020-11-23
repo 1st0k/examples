@@ -15,10 +15,12 @@ import {
 
 import { render } from "@istok/mdx-compile";
 import { useHydrate } from "@istok/mdx-render";
+import { AsyncComponentsLoadConfig } from "@istok/mdx-render/dist/load-components";
 
 export type PostProps = {
   slug: string;
   postData: {
+    components: string[];
     compiledSource: string;
     scope: any;
     metadata: {
@@ -28,6 +30,20 @@ export type PostProps = {
     contentHtml: string;
   };
 };
+
+function makeAsyncComponentsMap(names: string[]) {
+  return names.reduce<AsyncComponentsLoadConfig>((acc, curr) => {
+    acc[curr] = () =>
+      import("../../components/load/" + curr).then((m) => m.default);
+
+    return acc;
+  }, {});
+}
+
+// const promisedComponents = {
+//   AsyncComponent: () =>
+//     import("../../components/async-test").then((m) => m.default),
+// };
 
 export default function Post(props: PostProps) {
   if (!props.slug) {
@@ -49,7 +65,9 @@ export default function Post(props: PostProps) {
       contentHtml,
       scope,
     },
-    {},
+    {
+      promisedComponents: makeAsyncComponentsMap(props.postData.components),
+    },
     { element: "div" }
   );
 
@@ -87,19 +105,22 @@ export const getStaticProps: GetStaticProps = async function getStaticProps({
   }
 
   const slug = params.slug as string[];
-  console.log("\nget data for ", slug, locale);
 
   try {
     const data = await fetchPost(getResourceIdFromParams(slug, locale));
 
     const { metadata, content } = await getPostMetadata(data.resource);
+    const componentsToLoad: string[] = metadata.components.split(",");
 
-    const { compiledSource, contentHtml, scope } = await render(content);
+    const { compiledSource, contentHtml, scope } = await render(content, {
+      promisedComponents: makeAsyncComponentsMap(componentsToLoad),
+    });
 
     return {
       props: {
         slug: params.slug,
         postData: {
+          components: componentsToLoad,
           compiledSource,
           scope,
           metadata,
@@ -108,6 +129,7 @@ export const getStaticProps: GetStaticProps = async function getStaticProps({
       },
     };
   } catch (e) {
+    console.log(e);
     // do not prerender failed to be fetched post
     return {
       notFound: true,

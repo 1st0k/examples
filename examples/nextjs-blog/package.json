@@ -9,8 +9,8 @@
   },
   "dependencies": {
     "@istok/core": "^0.5.3",
-    "@istok/mdx-compile": "^0.1.0",
-    "@istok/mdx-render": "^0.5.5",
+    "@istok/mdx-compile": "^0.2.6",
+    "@istok/mdx-render": "^0.6.6",
     "@istok/source-filesystem": "^0.4.3",
     "date-fns": "^2.11.1",
     "gray-matter": "^4.0.2",
