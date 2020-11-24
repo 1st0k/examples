@@ -8,13 +8,12 @@
     "start": "next start"
   },
   "dependencies": {
-    "@istok/blog": "^0.1.2",
+    "@istok/blog": "^0.1.4",
     "@istok/core": "^0.5.5",
     "@istok/mdx-compile": "^0.3.0",
     "@istok/mdx-render": "^0.7.0",
     "@istok/source-filesystem": "^0.4.5",
     "date-fns": "^2.11.1",
-    "gray-matter": "^4.0.2",
     "next": "^10.0.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"

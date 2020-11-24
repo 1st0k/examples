@@ -1027,13 +1027,14 @@
   resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-9.1.0.tgz#6c9eafc78c1529248f8f4d92b0799a712b6052c6"
   integrity sha512-i9YbZPN3QgfighY/1X1Pu118VUz2Fmmhd6b2n0/O8YVgGGfw0FbUYoA97k7FkpGJ+pLCFEDLUmAPPV4D1kpeFw==
 
-"@istok/blog@^0.1.2":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@istok/blog/-/blog-0.1.2.tgz#7816bfce4fc0fbc3da28e1f9071d80964e186d59"
-  integrity sha512-WxJN2HZ/XbtefwdXolrfrHO18op3L8JuR4kECAhEo7fBgBnSWUoBOASGOS45mvmBlGjDBYQvht2MpBGA4vBZjg==
+"@istok/blog@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@istok/blog/-/blog-0.1.4.tgz#0aeb36ad16fac5ac35739e154e4552917f6fe99e"
+  integrity sha512-QrhIWO1cHhYVTV/obdXYztH4gxM1WsFVghBdM9ZBitBinWKiANxEZ2s3x++lBXsFQdg312btN7RDOPJoDtzefg==
   dependencies:
     "@istok/core" "^0.5.5"
     "@istok/utils" "^0.1.4"
+    gray-matter "^4.0.2"
 
 "@istok/core@^0.5.5":
   version "0.5.5"

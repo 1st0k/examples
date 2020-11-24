@@ -1,15 +1,12 @@
 import path from "path";
-import matter from "gray-matter";
 import { createFilesystemSource } from "@istok/source-filesystem";
-import { Resource, createSourcesSequence } from "@istok/core";
+import { createSourcesSequence } from "@istok/core";
 
-import { Blog, idToPathParams, paramsToId } from "@istok/blog";
-
-type Post = Resource<string>;
+import { Blog, idToPathParams, LocalizedBlogParams, paramsToId } from "@istok/blog";
 
 export const postParamsToId = paramsToId(".md");
 
-export const blog = new Blog(
+export const blog = new Blog<LocalizedBlogParams, { components: string }>(
   createSourcesSequence([
     {
       source: createFilesystemSource<string>({
@@ -22,13 +19,3 @@ export const blog = new Blog(
     paramsToId: postParamsToId,
   }
 );
-
-export async function getPostMetadata(post: Post) {
-  const { data, content } = matter(post.data);
-
-  return {
-    metadata: data,
-    content,
-    id: post.id,
-  };
-}

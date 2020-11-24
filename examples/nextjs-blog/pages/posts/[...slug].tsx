@@ -5,13 +5,13 @@ import { useRouter } from "next/router";
 import utilStyles from "../../styles/utils.module.css";
 import Layout from "../../components/layout";
 import Date from "../../components/date";
-import { blog, getPostMetadata, postParamsToId } from "../../lib/data-loader";
+import { blog, postParamsToId } from "../../lib/data-loader";
 
 import { render } from "@istok/mdx-compile";
 import { useHydrate, makeComponentsLoader } from "@istok/mdx-render";
+import { LocalizedBlogParams } from "@istok/blog";
 
 export type PostProps = {
-  slug: string;
   postData: {
     components: string[];
     compiledSource: string;
@@ -25,10 +25,6 @@ export type PostProps = {
 };
 
 export default function Post(props: PostProps) {
-  if (!props.slug) {
-    return "unknown slug";
-  }
-
   const { isFallback } = useRouter();
 
   if (isFallback) {
@@ -91,9 +87,11 @@ export const getStaticProps: GetStaticProps = async function getStaticProps(
   const slug = params.slug as string[];
 
   try {
-    const data = await blog.getPost(postParamsToId(context as any));
+    const post = await blog.getPost(
+      postParamsToId(context as LocalizedBlogParams)
+    );
 
-    const { metadata, content } = await getPostMetadata(data);
+    const { metadata, content } = await blog.getPostMetadata(post);
     const componentsToLoad: string[] = (metadata.components ?? "")
       .split(",")
       .filter((s: string) => s.length);

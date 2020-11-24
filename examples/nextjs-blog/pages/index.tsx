@@ -6,7 +6,7 @@ import Link from "next/link";
 import Layout, { siteTitle } from "../components/layout";
 import utilStyles from "../styles/utils.module.css";
 import Date from "../components/date";
-import { getPostMetadata, blog } from "../lib/data-loader";
+import { blog } from "../lib/data-loader";
 
 export type HomeProps = {
   allPostsData: {
@@ -75,16 +75,13 @@ export const getStaticProps: GetStaticProps = async function getStaticProps({
   });
 
   const posts = await blog.getPosts(postsList);
-  const metadata = await Promise.all(posts.map(getPostMetadata));
+  const allPostsData = await Promise.all(
+    posts.map((post) => blog.getPostMetadata(post))
+  );
 
   return {
     props: {
-      allPostsData: metadata.map(({ metadata, id, content }) => ({
-        metadata,
-        content,
-        // drop last part (locale) from id that will be an URL part
-        slug: id.split("/").slice(0, -1).join("/"),
-      })),
+      allPostsData,
     },
   };
 };
