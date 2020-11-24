@@ -6,11 +6,12 @@ import utilStyles from "../../styles/utils.module.css";
 import Layout from "../../components/layout";
 import Date from "../../components/date";
 import {
-  fetchPost,
-  getAllPostsParams,
+  blog,
+  // fetchPost,
+  // getAllPostsParams,
   getPostMetadata,
   getResourceIdFromParams,
-  source,
+  // source,
 } from "../../lib/data-loader";
 
 import { render } from "@istok/mdx-compile";
@@ -78,8 +79,9 @@ export default function Post(props: PostProps) {
 }
 
 export const getStaticPaths: GetStaticPaths = async function getStaticPaths() {
+  const ids = await blog.getPostsList();
   return {
-    paths: await getAllPostsParams(source),
+    paths: blog.getPostsParams(ids),
     fallback: true,
   };
 };
@@ -95,9 +97,9 @@ export const getStaticProps: GetStaticProps = async function getStaticProps({
   const slug = params.slug as string[];
 
   try {
-    const data = await fetchPost(getResourceIdFromParams(slug, locale));
+    const data = await blog.getPost(getResourceIdFromParams(slug, locale));
 
-    const { metadata, content } = await getPostMetadata(data.resource);
+    const { metadata, content } = await getPostMetadata(data);
     const componentsToLoad: string[] = (metadata.components ?? "")
       .split(",")
       .filter((s: string) => s.length);

@@ -1027,10 +1027,18 @@
   resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-9.1.0.tgz#6c9eafc78c1529248f8f4d92b0799a712b6052c6"
   integrity sha512-i9YbZPN3QgfighY/1X1Pu118VUz2Fmmhd6b2n0/O8YVgGGfw0FbUYoA97k7FkpGJ+pLCFEDLUmAPPV4D1kpeFw==
 
-"@istok/core@^0.5.3", "@istok/core@^0.5.4":
-  version "0.5.4"
-  resolved "https://registry.yarnpkg.com/@istok/core/-/core-0.5.4.tgz#583a3b93bb699f2ec927accbe084104d04ab828f"
-  integrity sha512-KZy5EAJ0Pmvdj6SmhJzM11IrY5XAzspjgmA0ehZWTh0y4dukw/9fqcL2d1RqOVd2wjoaK0yHfQZi0ff/0dKohg==
+"@istok/blog@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@istok/blog/-/blog-0.1.1.tgz#5e91d4b2d537875a33931d6ee38b4922f3b70e2b"
+  integrity sha512-L3LxWwUa4zZ9ITC6wNTJuXyTDhkFPBGiYivpjrIlsOWK+AKiB/8TPhmLrQ+nYlfvrDFNgaosvmwXKRIV05VVzQ==
+  dependencies:
+    "@istok/core" "^0.5.5"
+    "@istok/utils" "^0.1.4"
+
+"@istok/core@^0.5.5":
+  version "0.5.5"
+  resolved "https://registry.yarnpkg.com/@istok/core/-/core-0.5.5.tgz#bb286c8a143899e797f274f485974aae60e2a94c"
+  integrity sha512-2oi2qKvWjrKOE3rh9Ki9QJYgfYtLXOlL5Vut63GXBJzIRzYt/LT84NnRljtnNN+DhwEVvcAdiCLk5U1Y5z8pCg==
   dependencies:
     "@istok/utils" "^0.1.4"
     "@types/ramda" "^0.27.17"
@@ -1055,12 +1063,12 @@
     "@istok/utils" "^0.1.4"
     "@mdx-js/react" "^1.6.21"
 
-"@istok/source-filesystem@^0.4.3":
-  version "0.4.4"
-  resolved "https://registry.yarnpkg.com/@istok/source-filesystem/-/source-filesystem-0.4.4.tgz#a34492a859396dd3cc761f9de26cb049e2e6844c"
-  integrity sha512-aBApox6ZpaBOhddrz9sqVOMCzv9+I1yFVo3FQKGDbXNaToI8I9X359jYXm1u4N4nwv24azKyujyAmedFATau4w==
+"@istok/source-filesystem@^0.4.5":
+  version "0.4.5"
+  resolved "https://registry.yarnpkg.com/@istok/source-filesystem/-/source-filesystem-0.4.5.tgz#3a96bb272b3ba28c17c8f3d56c7126a868a0f439"
+  integrity sha512-5F3J6afKvKFMUPO76H6UEZVhqUklncYK7RXLg8gNjs7ZE5giMsa552mFlM6qO44y91w7ZO0G7QXFJTNy8TqLww==
   dependencies:
-    "@istok/core" "^0.5.4"
+    "@istok/core" "^0.5.5"
     "@types/klaw" "^3.0.1"
     chokidar "^3.4.2"
     fs-extra "^9.0.1"

@@ -6,16 +6,11 @@ import Link from "next/link";
 import Layout, { siteTitle } from "../components/layout";
 import utilStyles from "../styles/utils.module.css";
 import Date from "../components/date";
-import {
-  fetchPosts,
-  getPostMetadata,
-  slugFromId,
-  source,
-} from "../lib/data-loader";
+import { getPostMetadata, blog } from "../lib/data-loader";
 
 export type HomeProps = {
   allPostsData: {
-    id: string;
+    slug: string;
     content: string;
     metadata: {
       date: string;
@@ -43,9 +38,9 @@ export default function Home({ allPostsData }: HomeProps) {
         <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
           <h2 className={utilStyles.headingLg}>Blog</h2>
           <ul className={utilStyles.list}>
-            {allPostsData.map(({ id, metadata: { date, title } }) => (
-              <li className={utilStyles.listItem} key={id}>
-                <Link href={`/posts/${id}`}>
+            {allPostsData.map(({ slug, metadata: { date, title } }) => (
+              <li className={utilStyles.listItem} key={slug}>
+                <Link href={`/posts/${slug}`}>
                   <a>{title}</a>
                 </Link>
                 <br />
@@ -66,7 +61,20 @@ export const getStaticProps: GetStaticProps = async function getStaticProps({
   locale,
   defaultLocale,
 }) {
-  const posts = await fetchPosts(source, locale ?? defaultLocale ?? "en");
+  const postsList = await blog.getPostsList((id) => {
+    const parts = id.split("/");
+    if (parts.length < 2) {
+      throw new Error(
+        `Wrong post id format "${id}". Id must include slug and locale.`
+      );
+    }
+
+    const postLocale = parts[parts.length - 1];
+
+    return postLocale.includes(locale ?? defaultLocale ?? "en");
+  });
+
+  const posts = await blog.getPosts(postsList);
   const metadata = await Promise.all(posts.map(getPostMetadata));
 
   return {
@@ -74,7 +82,8 @@ export const getStaticProps: GetStaticProps = async function getStaticProps({
       allPostsData: metadata.map(({ metadata, id, content }) => ({
         metadata,
         content,
-        id: slugFromId(id).join("/"),
+        // drop last part (locale) from id that will be an URL part
+        slug: id.split("/").slice(0, -1).join("/"),
       })),
     },
   };

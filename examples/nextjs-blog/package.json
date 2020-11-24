@@ -8,10 +8,11 @@
     "start": "next start"
   },
   "dependencies": {
-    "@istok/core": "^0.5.3",
+    "@istok/blog": "^0.1.1",
+    "@istok/core": "^0.5.5",
     "@istok/mdx-compile": "^0.3.0",
     "@istok/mdx-render": "^0.7.0",
-    "@istok/source-filesystem": "^0.4.3",
+    "@istok/source-filesystem": "^0.4.5",
     "date-fns": "^2.11.1",
     "gray-matter": "^4.0.2",
     "next": "^10.0.2",
