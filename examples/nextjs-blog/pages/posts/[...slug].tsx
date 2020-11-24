@@ -5,14 +5,7 @@ import { useRouter } from "next/router";
 import utilStyles from "../../styles/utils.module.css";
 import Layout from "../../components/layout";
 import Date from "../../components/date";
-import {
-  blog,
-  // fetchPost,
-  // getAllPostsParams,
-  getPostMetadata,
-  getResourceIdFromParams,
-  // source,
-} from "../../lib/data-loader";
+import { blog, getPostMetadata, postParamsToId } from "../../lib/data-loader";
 
 import { render } from "@istok/mdx-compile";
 import { useHydrate, makeComponentsLoader } from "@istok/mdx-render";
@@ -86,10 +79,11 @@ export const getStaticPaths: GetStaticPaths = async function getStaticPaths() {
   };
 };
 
-export const getStaticProps: GetStaticProps = async function getStaticProps({
-  params,
-  locale,
-}) {
+export const getStaticProps: GetStaticProps = async function getStaticProps(
+  context
+) {
+  const { params, locale } = context;
+
   if (!params || !params.slug || !locale) {
     throw new Error(`"params" and "locale" are required for page props`);
   }
@@ -97,7 +91,7 @@ export const getStaticProps: GetStaticProps = async function getStaticProps({
   const slug = params.slug as string[];
 
   try {
-    const data = await blog.getPost(getResourceIdFromParams(slug, locale));
+    const data = await blog.getPost(postParamsToId(context as any));
 
     const { metadata, content } = await getPostMetadata(data);
     const componentsToLoad: string[] = (metadata.components ?? "")
@@ -113,7 +107,7 @@ export const getStaticProps: GetStaticProps = async function getStaticProps({
 
     return {
       props: {
-        slug: params.slug,
+        slug,
         postData: {
           components: componentsToLoad,
           compiledSource,
