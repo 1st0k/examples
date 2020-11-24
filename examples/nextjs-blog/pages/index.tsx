@@ -10,9 +10,11 @@ import { blog } from "../lib/data-loader";
 
 export type HomeProps = {
   allPostsData: {
-    slug: string;
     content: string;
     metadata: {
+      size: number;
+      components: string;
+      slug: string;
       date: string;
       title: string;
     };
@@ -38,17 +40,22 @@ export default function Home({ allPostsData }: HomeProps) {
         <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
           <h2 className={utilStyles.headingLg}>Blog</h2>
           <ul className={utilStyles.list}>
-            {allPostsData.map(({ slug, metadata: { date, title } }) => (
-              <li className={utilStyles.listItem} key={slug}>
-                <Link href={`/posts/${slug}`}>
-                  <a>{title}</a>
-                </Link>
-                <br />
-                <small className={utilStyles.lightText}>
-                  <Date dateString={date} />
-                </small>
-              </li>
-            ))}
+            {allPostsData.map(
+              ({ metadata: { date, slug, title, components, size } }) => (
+                <li className={utilStyles.listItem} key={slug}>
+                  <Link href={`/posts/${slug}`}>
+                    <a>{title}</a>
+                  </Link>
+                  <br />
+                  <small className={utilStyles.lightText}>
+                    <Date dateString={date} />
+                  </small>
+                  <br />
+                  <small>Components: {components}</small>
+                  <span>Size: {size}</span>
+                </li>
+              )
+            )}
           </ul>
         </section>
       </>

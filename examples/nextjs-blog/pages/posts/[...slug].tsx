@@ -92,13 +92,10 @@ export const getStaticProps: GetStaticProps = async function getStaticProps(
     );
 
     const { metadata, content } = await blog.getPostMetadata(post);
-    const componentsToLoad: string[] = (metadata.components ?? "")
-      .split(",")
-      .filter((s: string) => s.length);
 
     const { compiledSource, contentHtml, scope } = await render(content, {
       promisedComponents: makeComponentsLoader(
-        componentsToLoad,
+        metadata.components,
         (component) => import("../../components/load/" + component)
       ),
     });
@@ -107,7 +104,7 @@ export const getStaticProps: GetStaticProps = async function getStaticProps(
       props: {
         slug,
         postData: {
-          components: componentsToLoad,
+          components: metadata.components,
           compiledSource,
           scope,
           metadata,
