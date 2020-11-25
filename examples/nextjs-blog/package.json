@@ -8,7 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@istok/blog": "^0.2.2",
+    "@istok/blog": "^0.2.4",
     "@istok/core": "^0.5.5",
     "@istok/mdx-compile": "^0.3.0",
     "@istok/mdx-render": "^0.7.0",

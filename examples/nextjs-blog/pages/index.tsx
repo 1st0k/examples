@@ -8,6 +8,8 @@ import utilStyles from "../styles/utils.module.css";
 import Date from "../components/date";
 import { blog } from "../lib/data-loader";
 
+import { localeFilter } from "@istok/blog";
+
 export type HomeProps = {
   allPostsData: {
     content: string;
@@ -68,27 +70,15 @@ export const getStaticProps: GetStaticProps = async function getStaticProps({
   locale,
   defaultLocale,
 }) {
-  const postsList = await blog.getPostsList((id) => {
-    const parts = id.split("/");
-    if (parts.length < 2) {
-      throw new Error(
-        `Wrong post id format "${id}". Id must include slug and locale.`
-      );
-    }
+  const currentLocaleFilter = localeFilter(locale ?? defaultLocale ?? "en");
 
-    const postLocale = parts[parts.length - 1];
-
-    return postLocale.includes(locale ?? defaultLocale ?? "en");
-  });
-
+  const postsList = await blog.getPostsList(currentLocaleFilter);
   const posts = await blog.getPosts(postsList);
-  const allPostsData = await Promise.all(
-    posts.map((post) => blog.getPostMetadata(post))
-  );
+  const allPostsMetadata = await blog.getPostsMetadata(posts);
 
   return {
     props: {
-      allPostsData,
+      allPostsData: allPostsMetadata,
     },
   };
 };
