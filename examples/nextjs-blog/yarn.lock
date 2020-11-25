@@ -1027,49 +1027,55 @@
   resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-9.1.0.tgz#6c9eafc78c1529248f8f4d92b0799a712b6052c6"
   integrity sha512-i9YbZPN3QgfighY/1X1Pu118VUz2Fmmhd6b2n0/O8YVgGGfw0FbUYoA97k7FkpGJ+pLCFEDLUmAPPV4D1kpeFw==
 
-"@istok/blog@^0.2.4":
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/@istok/blog/-/blog-0.2.4.tgz#5965e80fc117d46b98f7ed1f84c2d41956a998f6"
-  integrity sha512-c+6bQurJ7mN7u89CZf2jFYMtP7gvMfgRmehiyUUyiLGNRtG7zia1gVurrnJGb/jPQYB+bsN2A2TxnUcpVvGb8A==
+"@istok/blog@^0.2.7":
+  version "0.2.7"
+  resolved "https://registry.yarnpkg.com/@istok/blog/-/blog-0.2.7.tgz#122a62c8b03d565dabf70edb5905950601ef897a"
+  integrity sha512-6C3l2VmLz3pfiXjz+2dgM5c9bL28Aeq98q/gjUJo4rM8nyZN7XJOY10SDZtfJABBpPuQLN4/3s7v+B9phUAmkA==
   dependencies:
-    "@istok/core" "^0.5.5"
+    "@istok/core" "^0.5.7"
     "@istok/utils" "^0.1.4"
     gray-matter "^4.0.2"
 
-"@istok/core@^0.5.5":
-  version "0.5.5"
-  resolved "https://registry.yarnpkg.com/@istok/core/-/core-0.5.5.tgz#bb286c8a143899e797f274f485974aae60e2a94c"
-  integrity sha512-2oi2qKvWjrKOE3rh9Ki9QJYgfYtLXOlL5Vut63GXBJzIRzYt/LT84NnRljtnNN+DhwEVvcAdiCLk5U1Y5z8pCg==
+"@istok/core@^0.5.7":
+  version "0.5.7"
+  resolved "https://registry.yarnpkg.com/@istok/core/-/core-0.5.7.tgz#0616c8c07354f5fd8830e416b5df5b4667b84057"
+  integrity sha512-gn6Ti11Fo5V0Iw8VnwemgFZw5Di/d/qtrF3MosnneUomOetpmUAmxouJzk3limelUzg6rtzLEaHChfaB91A6gQ==
   dependencies:
     "@istok/utils" "^0.1.4"
     "@types/ramda" "^0.27.17"
     ramda "^0.27.1"
 
-"@istok/mdx-compile@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@istok/mdx-compile/-/mdx-compile-0.3.0.tgz#18476947f88d52629aedabb852d872dc81d60561"
-  integrity sha512-6BiKx9my7KFqPKMdCdIuEh5epJd53O52Gnw8DcgIlTuLo6+zjejChDIrCx/XJ7aGsGQ0dXt+Z6xpjHAZ0/k+og==
+"@istok/lazy-load@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@istok/lazy-load/-/lazy-load-0.1.1.tgz#005837ed80efc086da8875fe9bbaf497be8b301c"
+  integrity sha512-qjv4/Kp3Kl6kcmqOLGKTIShwc96D26vAb22otmxp5sinsIVWjgLYwe5kzMsE3wB0t/VSJ7FYXxQo1pKJMmb6kg==
+
+"@istok/mdx-compile@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@istok/mdx-compile/-/mdx-compile-0.3.1.tgz#6ad329e4d524698e4f415269697b594dd3bc8504"
+  integrity sha512-IwLMY/rT4haBoLRdm/FKK7irUAQmX8R9WyVckCGJ9ua5APOymHTCE+C49UIta4oefRaMsEt02Xv3xPJfaYPqqQ==
   dependencies:
     "@babel/core" "^7.12.3"
     "@babel/preset-env" "^7.12.1"
     "@babel/preset-react" "^7.12.5"
-    "@istok/mdx-render" "^0.7.0"
+    "@istok/mdx-render" "^0.7.1"
     "@mdx-js/mdx" "^1.6.21"
 
-"@istok/mdx-render@^0.7.0":
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/@istok/mdx-render/-/mdx-render-0.7.0.tgz#7284c03f8eab1b025cc200f12f82b52162f12af5"
-  integrity sha512-D1Y4FmVK4nR0v/8SzlumxsJl0F6OvjGDq2uVCU6iKRtB9+PK3kpVtiR3mJlgUxYRpsQslx9Ij/K32IGYPsn5+g==
+"@istok/mdx-render@^0.7.1":
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/@istok/mdx-render/-/mdx-render-0.7.1.tgz#67ea44afe572edf110cda3f4c17776d715fafed0"
+  integrity sha512-Lqpzjq7CMAitJnH+dr78IDTJreCoT58XvPgsnAG8U2rGT9h80eFTzh/Iiuo+l694h2V+RJlYh1GJ8Xxj+4Xmcw==
   dependencies:
+    "@istok/lazy-load" "^0.1.1"
     "@istok/utils" "^0.1.4"
     "@mdx-js/react" "^1.6.21"
 
-"@istok/source-filesystem@^0.4.5":
-  version "0.4.5"
-  resolved "https://registry.yarnpkg.com/@istok/source-filesystem/-/source-filesystem-0.4.5.tgz#3a96bb272b3ba28c17c8f3d56c7126a868a0f439"
-  integrity sha512-5F3J6afKvKFMUPO76H6UEZVhqUklncYK7RXLg8gNjs7ZE5giMsa552mFlM6qO44y91w7ZO0G7QXFJTNy8TqLww==
+"@istok/source-filesystem@^0.4.7":
+  version "0.4.7"
+  resolved "https://registry.yarnpkg.com/@istok/source-filesystem/-/source-filesystem-0.4.7.tgz#7c6d8cabad51f7d0721a50dcc2b376b161c4c9b7"
+  integrity sha512-/A2xs7jElMR2+sMhNdGDEXkFhRlMtN5/v80/LsMfJHKuzJMgKOsIbUDFkN3Qk/oqr2jt45b5bbYUA5Oj+iRb3w==
   dependencies:
-    "@istok/core" "^0.5.5"
+    "@istok/core" "^0.5.7"
     "@types/klaw" "^3.0.1"
     chokidar "^3.4.2"
     fs-extra "^9.0.1"
@@ -1161,6 +1167,11 @@
   version "7.0.6"
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.6.tgz#f4c7ec43e81b319a9815115031709f26987891f0"
   integrity sha512-3c+yGKvVP5Y9TYBEibGNR+kLtijnj7mYrXRg+WpFb2X9xm04g/DXYkfg4hmzJQosc9snFNUPkbYIhu+KAm6jJw==
+
+"@types/katex@^0.11.0":
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/@types/katex/-/katex-0.11.0.tgz#b16c54ee670925ffef0616beae9e90c557e17334"
+  integrity sha512-27BfE8zASRLYfSBNMk5/+KIjr2CBBrH0i5lhsO04fca4TGirIIMay73v3zNkzqmsaeIa/Mi5kejWDcxPLAmkvA==
 
 "@types/klaw@^3.0.1":
   version "3.0.1"
@@ -2079,7 +2090,7 @@ comma-separated-tokens@^1.0.0:
   resolved "https://registry.yarnpkg.com/comma-separated-tokens/-/comma-separated-tokens-1.0.8.tgz#632b80b6117867a158f1080ad498b2fbe7e3f5ea"
   integrity sha512-GHuDRO12Sypu2cV70d1dkA2EUmXHgntrzbpvOB+Qy+49ypNfGgFQIC2fhhXbnyrJRynDCAARsT7Ou0M6hirpfw==
 
-commander@^2.20.0:
+commander@^2.19.0, commander@^2.20.0:
   version "2.20.3"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
   integrity sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
@@ -3069,6 +3080,11 @@ hast-util-from-parse5@^6.0.0:
     vfile-location "^3.2.0"
     web-namespaces "^1.0.0"
 
+hast-util-is-element@^1.0.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/hast-util-is-element/-/hast-util-is-element-1.1.0.tgz#3b3ed5159a2707c6137b48637fbfe068e175a425"
+  integrity sha512-oUmNua0bFbdrD/ELDSSEadRVtWZOf3iF6Lbv81naqsIV99RnSCieTbWuWCY8BAeEfKJTKl0gRdokv+dELutHGQ==
+
 hast-util-parse-selector@^2.0.0:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/hast-util-parse-selector/-/hast-util-parse-selector-2.2.5.tgz#d57c23f4da16ae3c63b3b6ca4616683313499c3a"
@@ -3100,6 +3116,15 @@ hast-util-to-parse5@^6.0.0:
     web-namespaces "^1.0.0"
     xtend "^4.0.0"
     zwitch "^1.0.0"
+
+hast-util-to-text@^2.0.0:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/hast-util-to-text/-/hast-util-to-text-2.0.1.tgz#04f2e065642a0edb08341976084aa217624a0f8b"
+  integrity sha512-8nsgCARfs6VkwH2jJU9b8LNTuR4700na+0h3PqCaEk4MAnMDeu5P0tP8mjk9LLNGxIeQRLbiDbZVw6rku+pYsQ==
+  dependencies:
+    hast-util-is-element "^1.0.0"
+    repeat-string "^1.0.0"
+    unist-util-find-after "^3.0.0"
 
 hastscript@^6.0.0:
   version "6.0.0"
@@ -3509,6 +3534,13 @@ jsonfile@^6.0.1:
     universalify "^2.0.0"
   optionalDependencies:
     graceful-fs "^4.1.6"
+
+katex@^0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/katex/-/katex-0.12.0.tgz#2fb1c665dbd2b043edcf8a1f5c555f46beaa0cb9"
+  integrity sha512-y+8btoc/CK70XqcHqjxiGWBOeIL8upbS0peTPXTvgrh21n1RiWWcIpSWM+4uXq+IAgNh9YYQWdc7LVDPDAEEAg==
+  dependencies:
+    commander "^2.19.0"
 
 kind-of@^3.0.2, kind-of@^3.0.3, kind-of@^3.2.0:
   version "3.2.2"
@@ -4647,10 +4679,35 @@ regjsparser@^0.6.4:
   dependencies:
     jsesc "~0.5.0"
 
+rehype-katex@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/rehype-katex/-/rehype-katex-4.0.0.tgz#ce11a5db0bff014350e7a9cfd30147d314b14330"
+  integrity sha512-0mgBqYugQyIW0eUl6RDOZ28Cat2YzrnWGaYgKCMQnJw6ClmKgLqXBnkDAPGh2mwxvkkKwQOUMUpSLpA5rt7rzA==
+  dependencies:
+    "@types/katex" "^0.11.0"
+    hast-util-to-text "^2.0.0"
+    katex "^0.12.0"
+    rehype-parse "^7.0.0"
+    unified "^9.0.0"
+    unist-util-visit "^2.0.0"
+
+rehype-parse@^7.0.0:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/rehype-parse/-/rehype-parse-7.0.1.tgz#58900f6702b56767814afc2a9efa2d42b1c90c57"
+  integrity sha512-fOiR9a9xH+Le19i4fGzIEowAbwG7idy2Jzs4mOrFWBSJ0sNUgy0ev871dwWnbOo371SjgjG4pwzrbgSVrKxecw==
+  dependencies:
+    hast-util-from-parse5 "^6.0.0"
+    parse5 "^6.0.0"
+
 remark-footnotes@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/remark-footnotes/-/remark-footnotes-2.0.0.tgz#9001c4c2ffebba55695d2dd80ffb8b82f7e6303f"
   integrity sha512-3Clt8ZMH75Ayjp9q4CorNeyjwIxHFcTkaektplKGl2A1jNGEUey8cKL0ZC5vJwfcD5GFGsNLImLG/NGzWIzoMQ==
+
+remark-math@3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/remark-math/-/remark-math-3.0.1.tgz#85a02a15b15cad34b89a27244d4887b3a95185bb"
+  integrity sha512-epT77R/HK0x7NqrWHdSV75uNLwn8g9qTyMqCRCDujL0vj/6T6+yhdrR7mjELWtkse+Fw02kijAaBuVcHBor1+Q==
 
 remark-mdx@1.6.21:
   version "1.6.21"
@@ -4705,7 +4762,7 @@ repeat-element@^1.1.2:
   resolved "https://registry.yarnpkg.com/repeat-element/-/repeat-element-1.1.3.tgz#782e0d825c0c5a3bb39731f84efee6b742e6b1ce"
   integrity sha512-ahGq0ZnV5m5XtZLMb+vP76kcAM5nkLqk0lpqAuojSKGgQtn4eRi4ZZGm2olo2zKFH+sMsWaqOCW1dqAnOru72g==
 
-repeat-string@^1.5.4, repeat-string@^1.6.1:
+repeat-string@^1.0.0, repeat-string@^1.5.4, repeat-string@^1.6.1:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/repeat-string/-/repeat-string-1.6.1.tgz#8dcae470e1c88abc2d600fff4a776286da75e637"
   integrity sha1-jcrkcOHIirwtYA//Sndihtp15jc=
@@ -5510,7 +5567,7 @@ unicode-property-aliases-ecmascript@^1.0.4:
   resolved "https://registry.yarnpkg.com/unicode-property-aliases-ecmascript/-/unicode-property-aliases-ecmascript-1.1.0.tgz#dd57a99f6207bedff4628abefb94c50db941c8f4"
   integrity sha512-PqSoPh/pWetQ2phoj5RLiaqIk4kCNwoV3CI+LfGmWLKI3rE3kl1h59XpX2BjgDrmbxD9ARtQobPGU1SguCYuQg==
 
-unified@9.2.0:
+unified@9.2.0, unified@^9.0.0:
   version "9.2.0"
   resolved "https://registry.yarnpkg.com/unified/-/unified-9.2.0.tgz#67a62c627c40589edebbf60f53edfd4d822027f8"
   integrity sha512-vx2Z0vY+a3YoTj8+pttM3tiJHCwY5UFbYdiWrwBEbHmK8pvsPj2rtAX2BFfgXen8T39CJWblWRDT4L5WGXtDdg==
@@ -5555,6 +5612,13 @@ unist-builder@2.0.3, unist-builder@^2.0.0:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/unist-builder/-/unist-builder-2.0.3.tgz#77648711b5d86af0942f334397a33c5e91516436"
   integrity sha512-f98yt5pnlMWlzP539tPc4grGMsFaQQlP/vM396b00jngsiINumNmsY8rkXjfoi1c6QaM8nQ3vaGDuoKWbe/1Uw==
+
+unist-util-find-after@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/unist-util-find-after/-/unist-util-find-after-3.0.0.tgz#5c65fcebf64d4f8f496db46fa8fd0fbf354b43e6"
+  integrity sha512-ojlBqfsBftYXExNu3+hHLfJQ/X1jYY/9vdm4yZWjIbf0VuWF6CRufci1ZyoD/wV2TYMKxXUoNuoqwy+CkgzAiQ==
+  dependencies:
+    unist-util-is "^4.0.0"
 
 unist-util-generated@^1.0.0:
   version "1.1.6"

@@ -5,11 +5,18 @@ import { useRouter } from "next/router";
 import utilStyles from "../../styles/utils.module.css";
 import Layout from "../../components/layout";
 import Date from "../../components/date";
+
 import { blog, postParamsToId } from "../../lib/data-loader";
+import { asyncComponents } from "../../lib/components-loader";
 
 import { render } from "@istok/mdx-compile";
-import { useHydrate, makeComponentsLoader } from "@istok/mdx-render";
+import { useHydrate } from "@istok/mdx-render";
 import { LocalizedBlogParams } from "@istok/blog";
+
+import katex from "rehype-katex";
+import math from "remark-math";
+
+import "katex/dist/katex.min.css";
 
 export type PostProps = {
   postData: {
@@ -41,10 +48,7 @@ export default function Post(props: PostProps) {
       scope,
     },
     {
-      promisedComponents: makeComponentsLoader(
-        props.postData.components,
-        (component) => import("../../components/load/" + component)
-      ),
+      asyncComponents: asyncComponents(props.postData.components),
     },
     { element: "div" }
   );
@@ -86,37 +90,34 @@ export const getStaticProps: GetStaticProps = async function getStaticProps(
 
   const slug = params.slug as string[];
 
-  try {
-    const post = await blog.getPost(
-      postParamsToId(context as LocalizedBlogParams)
-    );
+  const post = await blog.getPost(
+    postParamsToId(context as LocalizedBlogParams)
+  );
 
-    const { metadata, content } = await blog.getPostMetadata(post);
+  const { metadata, content } = await blog.getPostMetadata(post);
 
-    const { compiledSource, contentHtml, scope } = await render(content, {
-      promisedComponents: makeComponentsLoader(
-        metadata.components,
-        (component) => import("../../components/load/" + component)
-      ),
-    });
-
-    return {
-      props: {
-        slug,
-        postData: {
-          components: metadata.components,
-          compiledSource,
-          scope,
-          metadata,
-          contentHtml,
-        },
+  const { compiledSource, contentHtml, scope } = await render(content, {
+    asyncComponents: asyncComponents(metadata.components),
+    compileOptions: {
+      compilers: [],
+      rehypePlugins: [katex],
+      remarkPlugins: [math],
+      resourceToURL(s) {
+        return s;
       },
-    };
-  } catch (e) {
-    console.log(e);
-    // do not prerender failed to be fetched post
-    return {
-      notFound: true,
-    };
-  }
+    },
+  });
+
+  return {
+    props: {
+      slug,
+      postData: {
+        components: metadata.components,
+        compiledSource,
+        scope,
+        metadata,
+        contentHtml,
+      },
+    },
+  };
 };

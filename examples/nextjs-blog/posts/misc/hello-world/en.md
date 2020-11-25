@@ -6,4 +6,4 @@ components: AsyncComponent
 
 # Hello world
 
-<AsyncComponent>I am asynchroniously loaded component defined in blog post</AsyncComponent>
+<AsyncComponent>I am asynchroniously loaded component defined in blog post!</AsyncComponent>

@@ -8,15 +8,17 @@
     "start": "next start"
   },
   "dependencies": {
-    "@istok/blog": "^0.2.4",
-    "@istok/core": "^0.5.5",
-    "@istok/mdx-compile": "^0.3.0",
-    "@istok/mdx-render": "^0.7.0",
-    "@istok/source-filesystem": "^0.4.5",
+    "@istok/blog": "^0.2.7",
+    "@istok/core": "^0.5.7",
+    "@istok/mdx-compile": "^0.3.1",
+    "@istok/mdx-render": "^0.7.1",
+    "@istok/source-filesystem": "^0.4.7",
     "date-fns": "^2.11.1",
     "next": "^10.0.2",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.1",
+    "rehype-katex": "^4.0.0",
+    "remark-math": "3.0.1"
   },
   "devDependencies": {
     "@types/node": "^14.11.2",

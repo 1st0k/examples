@@ -1,6 +1,6 @@
 import path from "path";
 import { createFilesystemSource } from "@istok/source-filesystem";
-import { createSourcesSequence } from "@istok/core";
+import { createCachableSource, createMemorySource } from "@istok/core";
 
 import {
   Blog,
@@ -19,35 +19,39 @@ export type MetadataPluginFields = {
   components: string[];
 };
 
+export const source = createCachableSource<string>({
+  caches: [
+    {
+      source: createMemorySource(),
+      invalidateOnInit: true,
+      invalidationInterval: 2,
+    },
+  ],
+  source: createFilesystemSource<string>({
+    root: path.resolve(process.cwd(), "./posts"),
+  }),
+});
+
 export const blog = new Blog<
   LocalizedBlogParams,
   MetadataInlineExtension,
   MetadataPluginFields
->(
-  createSourcesSequence([
-    {
-      source: createFilesystemSource<string>({
-        root: path.resolve(process.cwd(), "./posts"),
-      }),
-    },
-  ]),
-  {
-    metadata: ({ blog }) => {
-      return {
-        getMetadata(post, { metadata, enhanceMetadata }) {
-          const enhancedMetadata = enhanceMetadata({
-            slug: getSlugMetadata(blog, post),
-            size: metadata.content.length,
-            components: (metadata.metadata.components ?? "")
-              .split(",")
-              .filter((s: string) => s.length),
-          });
+>(source, {
+  metadata: ({ blog }) => {
+    return {
+      getMetadata(post, { metadata, enhanceMetadata }) {
+        const enhancedMetadata = enhanceMetadata({
+          slug: getSlugMetadata(blog, post),
+          size: metadata.content.length,
+          components: (metadata.metadata.components ?? "")
+            .split(",")
+            .filter((s: string) => s.length),
+        });
 
-          return enhancedMetadata;
-        },
-      };
-    },
-    idToParams: idToPathParams,
-    paramsToId: postParamsToId,
-  }
-);
+        return enhancedMetadata;
+      },
+    };
+  },
+  idToParams: idToPathParams,
+  paramsToId: postParamsToId,
+});
