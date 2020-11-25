@@ -1,12 +1,13 @@
 import { GetStaticProps, GetStaticPaths } from "next";
 import Head from "next/head";
-
+import Link from "next/link";
 import { useRouter } from "next/router";
+
 import utilStyles from "../../styles/utils.module.css";
 import Layout from "../../components/layout";
 import Date from "../../components/date";
 
-import { blog, postParamsToId } from "../../lib/data-loader";
+import { blog, getGlobalMeta, postParamsToId } from "../../lib/data-loader";
 import { asyncComponents } from "../../lib/components-loader";
 
 import { render } from "@istok/mdx-compile";
@@ -19,7 +20,9 @@ import math from "remark-math";
 import "katex/dist/katex.min.css";
 
 export type PostProps = {
+  slug: string;
   postData: {
+    otherLocales: string[];
     components: string[];
     compiledSource: string;
     scope: any;
@@ -38,8 +41,14 @@ export default function Post(props: PostProps) {
     return "loading...";
   }
 
-  const { postData } = props;
-  const { metadata, contentHtml, compiledSource, scope } = postData;
+  const { postData, slug } = props;
+  const {
+    metadata,
+    contentHtml,
+    compiledSource,
+    scope,
+    otherLocales,
+  } = postData;
 
   const content = useHydrate(
     {
@@ -65,6 +74,13 @@ export default function Post(props: PostProps) {
             <Date dateString={metadata.date} />
           </div>
           {content}
+          {otherLocales.map((locale) => {
+            return (
+              <Link key={locale} locale={locale} href={"/posts/" + slug}>
+                <a>{locale}</a>
+              </Link>
+            );
+          })}
         </article>
       </>{" "}
     </Layout>
@@ -90,6 +106,10 @@ export const getStaticProps: GetStaticProps = async function getStaticProps(
 
   const slug = params.slug as string[];
 
+  const { locales } = (await getGlobalMeta())[slug.join("/")];
+
+  const otherLocales = locales.filter((l: string) => l !== locale);
+
   const post = await blog.getPost(
     postParamsToId(context as LocalizedBlogParams)
   );
@@ -110,8 +130,9 @@ export const getStaticProps: GetStaticProps = async function getStaticProps(
 
   return {
     props: {
-      slug,
+      slug: slug.join("/"),
       postData: {
+        otherLocales,
         components: metadata.components,
         compiledSource,
         scope,
