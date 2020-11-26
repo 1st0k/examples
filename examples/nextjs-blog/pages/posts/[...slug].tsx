@@ -7,7 +7,7 @@ import utilStyles from "../../styles/utils.module.css";
 import Layout from "../../components/layout";
 import Date from "../../components/date";
 
-import { blog, getGlobalMeta, postParamsToId } from "../../lib/data-loader";
+import { blog, postParamsToId } from "../../lib/data-loader";
 import { asyncComponents } from "../../lib/components-loader";
 
 import { render } from "@istok/mdx-compile";
@@ -55,8 +55,6 @@ export default function Post(props: PostProps) {
       compiledSource,
       contentHtml,
       scope,
-    },
-    {
       asyncComponents: asyncComponents(props.postData.components),
     },
     { element: "div" }
@@ -106,15 +104,12 @@ export const getStaticProps: GetStaticProps = async function getStaticProps(
 
   const slug = params.slug as string[];
 
-  const { locales } = (await getGlobalMeta())[slug.join("/")];
-
-  const otherLocales = locales.filter((l: string) => l !== locale);
-
   const post = await blog.getPost(
     postParamsToId(context as LocalizedBlogParams)
   );
 
   const { metadata, content } = await blog.getPostMetadata(post);
+  const otherLocales = metadata.allLocales.filter((l: string) => l !== locale);
 
   const { compiledSource, contentHtml, scope } = await render(content, {
     asyncComponents: asyncComponents(metadata.components),

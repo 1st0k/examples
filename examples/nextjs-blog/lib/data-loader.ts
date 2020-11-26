@@ -1,10 +1,6 @@
 import path from "path";
 import { createFilesystemSource } from "@istok/source-filesystem";
-import {
-  createCachableSource,
-  createMemorySource,
-  isGetSetResultSuccess,
-} from "@istok/core";
+import { createCachableSource, createMemorySource } from "@istok/core";
 
 import {
   Blog,
@@ -12,7 +8,9 @@ import {
   idToPathParams,
   LocalizedBlogParams,
   paramsToId,
+  makeAllLocalesMetadataResolver,
 } from "@istok/blog";
+import { createFirebaseStorageSource } from "@istok/source-firebase";
 
 export const postParamsToId = paramsToId(".md");
 
@@ -23,7 +21,9 @@ export type MetadataPluginFields = {
   components: string[];
 };
 
-export const source = createCachableSource<string>({
+export type MetadataGlobal = { allLocales: string[] };
+
+export const postsSource = createCachableSource<string>({
   caches: [
     {
       source: createMemorySource(),
@@ -36,78 +36,48 @@ export const source = createCachableSource<string>({
   }),
 });
 
-const blogMetadata = createFilesystemSource({
-  root: path.resolve(process.cwd(), "./.posts-meta"),
-});
+const FIREBASE_METADATA_STORAGE = process.env.FIREBASE_METADATA_STORAGE;
 
-export async function getGlobalMeta() {
-  const getListResult = await blogMetadata.get("list");
-
-  console.log("checking global blog meta");
-
-  let needRebuildMeta = false;
-
-  if (!isGetSetResultSuccess(getListResult)) {
-    needRebuildMeta = true;
-  } else {
-    const data = JSON.parse(getListResult.resource.data as string);
-    if (data.invalidated) {
-      needRebuildMeta = true;
-    } else {
-      return data.posts;
-    }
-  }
-
-  if (needRebuildMeta) {
-    const postsList = await blog.getPostsList();
-
-    const meta = buildMeta(postsList.map((p) => p.id));
-
-    await blogMetadata.set(
-      "list",
-      JSON.stringify({ invalidated: false, posts: meta })
-    );
-
-    return meta.posts;
-  }
-}
-
-function buildMeta(ids: string[]) {
-  const meta: any = {};
-  for (const id of ids) {
-    const params = blog.idToParams(id);
-    const slug = params.params.slug.join("/");
-    const lang = params.locale;
-
-    if (!meta[slug]) {
-      meta[slug] = { locales: [] };
-    }
-    meta[slug].locales.push(lang);
-  }
-
-  return meta;
-}
+const internalSource = FIREBASE_METADATA_STORAGE
+  ? createFirebaseStorageSource({
+      options: {
+        bucket: process.env.FIREBASE_BUCKET as string,
+        root: ".posts-metadata",
+      },
+    })
+  : createFilesystemSource<string>({
+      root: path.resolve(process.cwd(), "./.posts-meta"),
+      autoCreateRoot: true,
+    });
 
 export const blog = new Blog<
   LocalizedBlogParams,
   MetadataInlineExtension,
-  MetadataPluginFields
->(source, {
-  metadata: ({ blog }) => {
-    return {
-      getMetadata(post, { metadata, enhanceMetadata }) {
-        const enhancedMetadata = enhanceMetadata({
-          slug: getSlugMetadata(blog, post),
-          size: metadata.content.length,
-          components: (metadata.metadata.components ?? "")
-            .split(",")
-            .filter((s: string) => s.length),
-        });
-
-        return enhancedMetadata;
-      },
-    };
+  MetadataPluginFields,
+  MetadataGlobal
+>(
+  {
+    posts: postsSource,
+    internal: internalSource,
   },
-  idToParams: idToPathParams,
-  paramsToId: postParamsToId,
-});
+  {
+    metadata: ({ blog }) => {
+      return {
+        buildGlobalMetadata: makeAllLocalesMetadataResolver(blog),
+        getMetadata(post, { metadata, enhanceMetadata }) {
+          const enhancedMetadata = enhanceMetadata({
+            slug: getSlugMetadata(blog, post),
+            size: metadata.content.length,
+            components: (metadata.metadata.components ?? "")
+              .split(",")
+              .filter((s: string) => s.length),
+          });
+
+          return enhancedMetadata;
+        },
+      };
+    },
+    idToParams: idToPathParams,
+    paramsToId: postParamsToId,
+  }
+);
