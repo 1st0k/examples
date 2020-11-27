@@ -2,6 +2,7 @@
 title: "Привет мир"
 date: "2020-01-01"
 components: AsyncComponent
+tags: привет мир
 ---
 
 # Привет мир

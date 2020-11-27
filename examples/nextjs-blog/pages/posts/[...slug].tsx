@@ -7,7 +7,7 @@ import utilStyles from "../../styles/utils.module.css";
 import Layout from "../../components/layout";
 import Date from "../../components/date";
 
-import { blog, postParamsToId } from "../../lib/data-loader";
+import { blog, FinalMetadata, postParamsToId } from "../../lib/data-loader";
 import { asyncComponents } from "../../lib/components-loader";
 
 import { render } from "@istok/mdx-compile";
@@ -20,16 +20,13 @@ import math from "remark-math";
 import "katex/dist/katex.min.css";
 
 export type PostProps = {
-  slug: string;
   postData: {
+    slug: string;
     otherLocales: string[];
     components: string[];
     compiledSource: string;
     scope: any;
-    metadata: {
-      date: string;
-      title: string;
-    };
+    metadata: FinalMetadata;
     contentHtml: string;
   };
 };
@@ -41,14 +38,8 @@ export default function Post(props: PostProps) {
     return "loading...";
   }
 
-  const { postData, slug } = props;
-  const {
-    metadata,
-    contentHtml,
-    compiledSource,
-    scope,
-    otherLocales,
-  } = postData;
+  const { postData } = props;
+  const { metadata, contentHtml, compiledSource, scope } = postData;
 
   const content = useHydrate(
     {
@@ -72,9 +63,13 @@ export default function Post(props: PostProps) {
             <Date dateString={metadata.date} />
           </div>
           {content}
-          {otherLocales.map((locale) => {
+          {postData.otherLocales.map((locale) => {
             return (
-              <Link key={locale} locale={locale} href={"/posts/" + slug}>
+              <Link
+                key={locale}
+                locale={locale}
+                href={"/posts/" + postData.slug}
+              >
                 <a>{locale}</a>
               </Link>
             );
@@ -125,10 +120,9 @@ export const getStaticProps: GetStaticProps = async function getStaticProps(
 
   return {
     props: {
-      slug: slug.join("/"),
       postData: {
+        slug: slug.join("/"),
         otherLocales,
-        components: metadata.components,
         compiledSource,
         scope,
         metadata,

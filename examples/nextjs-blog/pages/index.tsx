@@ -6,20 +6,14 @@ import Link from "next/link";
 import Layout, { siteTitle } from "../components/layout";
 import utilStyles from "../styles/utils.module.css";
 import Date from "../components/date";
-import { blog } from "../lib/data-loader";
+import { blog, FinalMetadata } from "../lib/data-loader";
 
 import { localeFilter } from "@istok/blog";
 
 export type HomeProps = {
   allPostsData: {
     content: string;
-    metadata: {
-      size: number;
-      components: string;
-      slug: string;
-      date: string;
-      title: string;
-    };
+    metadata: FinalMetadata;
   }[];
 };
 
@@ -42,22 +36,22 @@ export default function Home({ allPostsData }: HomeProps) {
         <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
           <h2 className={utilStyles.headingLg}>Blog</h2>
           <ul className={utilStyles.list}>
-            {allPostsData.map(
-              ({ metadata: { date, slug, title, components, size } }) => (
-                <li className={utilStyles.listItem} key={slug}>
-                  <Link href={`/posts/${slug}`}>
-                    <a>{title}</a>
-                  </Link>
-                  <br />
-                  <small className={utilStyles.lightText}>
-                    <Date dateString={date} />
-                  </small>
-                  <br />
-                  <small>Components: {components}</small>
-                  <span>Size: {size}</span>
-                </li>
-              )
-            )}
+            {allPostsData.map(({ metadata: { date,
+                tags, slug, title, components, size } }) => (
+              <li className={utilStyles.listItem} key={slug}>
+                <Link href={`/posts/${slug}`}>
+                  <a>{title}</a>
+                </Link>
+                <br />
+                <small className={utilStyles.lightText}>
+                  <Date dateString={date} />
+                </small>
+                <br />
+                <small>Components: {components}</small>
+                <span>Size: {size}</span>
+                <span>Tags: {tags.join(",")}</span>
+              </li>
+            ))}
           </ul>
         </section>
       </>
@@ -70,9 +64,9 @@ export const getStaticProps: GetStaticProps = async function getStaticProps({
   locale,
   defaultLocale,
 }) {
-  const currentLocaleFilter = localeFilter(locale ?? defaultLocale ?? "en");
-
-  const postsList = await blog.getPostsList(currentLocaleFilter);
+  const postsList = await blog.getPostsList(
+    localeFilter(locale ?? defaultLocale ?? "en")
+  );
   const posts = await blog.getPosts(postsList);
   const allPostsMetadata = await blog.getPostsMetadata(posts);
 

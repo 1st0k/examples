@@ -1,4 +1,5 @@
 import path from "path";
+import { parseISO } from "date-fns";
 import { createFilesystemSource } from "@istok/source-filesystem";
 import { createCachableSource, createMemorySource } from "@istok/core";
 
@@ -9,19 +10,24 @@ import {
   LocalizedBlogParams,
   paramsToId,
   makeAllLocalesMetadataResolver,
+  MetadataBase,
 } from "@istok/blog";
 import { createFirebaseStorageSource } from "@istok/source-firebase";
 
 export const postParamsToId = paramsToId(".md");
 
-export type MetadataInlineExtension = { components: string };
+export type MetadataInlineExtension = { components: string; tags: string };
 export type MetadataPluginFields = {
   slug: string;
   size: number;
   components: string[];
+  tags: string[];
+  parsedDate: string;
 };
 
 export type MetadataGlobal = { allLocales: string[] };
+
+export type FinalMetadata = MetadataBase<MetadataGlobal & MetadataPluginFields>;
 
 export const postsSource = createCachableSource<string>({
   caches: [
@@ -65,15 +71,15 @@ export const blog = new Blog<
       return {
         buildGlobalMetadata: makeAllLocalesMetadataResolver(blog),
         getMetadata(post, { metadata, enhanceMetadata }) {
-          const enhancedMetadata = enhanceMetadata({
+          return enhanceMetadata({
+            parsedDate: parseISO(metadata.metadata.date).toISOString(),
+            tags: (metadata.metadata.tags || "").split(","),
             slug: getSlugMetadata(blog, post),
             size: metadata.content.length,
             components: (metadata.metadata.components ?? "")
               .split(",")
               .filter((s: string) => s.length),
           });
-
-          return enhancedMetadata;
         },
       };
     },
