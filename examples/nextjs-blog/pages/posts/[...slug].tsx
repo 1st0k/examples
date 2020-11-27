@@ -23,11 +23,10 @@ export type PostProps = {
   postData: {
     slug: string;
     otherLocales: string[];
-    components: string[];
-    compiledSource: string;
-    scope: any;
     metadata: FinalMetadata;
+    compiledSource: string;
     contentHtml: string;
+    scope: any;
   };
 };
 
@@ -46,7 +45,7 @@ export default function Post(props: PostProps) {
       compiledSource,
       contentHtml,
       scope,
-      asyncComponents: asyncComponents(props.postData.components),
+      asyncComponents: asyncComponents(props.postData.metadata.components),
     },
     { element: "div" }
   );
