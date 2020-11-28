@@ -11,7 +11,7 @@ import { blog, FinalMetadata, postParamsToId } from "../../lib/data-loader";
 import { asyncComponents } from "../../lib/components-loader";
 
 import { render } from "@istok/mdx-compile";
-import { useHydrate } from "@istok/mdx-render";
+import { useMdx } from "@istok/mdx-runtime";
 import { LocalizedBlogParams } from "@istok/blog";
 
 import katex from "rehype-katex";
@@ -40,9 +40,9 @@ export default function Post(props: PostProps) {
   const { postData } = props;
   const { metadata, contentHtml, compiledSource, scope } = postData;
 
-  const content = useHydrate(
+  const content = useMdx(
+    compiledSource,
     {
-      compiledSource,
       contentHtml,
       scope,
       asyncComponents: asyncComponents(props.postData.metadata.components),

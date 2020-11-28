@@ -1197,24 +1197,33 @@
   resolved "https://registry.yarnpkg.com/@istok/lazy-load/-/lazy-load-0.1.1.tgz#005837ed80efc086da8875fe9bbaf497be8b301c"
   integrity sha512-qjv4/Kp3Kl6kcmqOLGKTIShwc96D26vAb22otmxp5sinsIVWjgLYwe5kzMsE3wB0t/VSJ7FYXxQo1pKJMmb6kg==
 
-"@istok/mdx-compile@^0.3.2":
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/@istok/mdx-compile/-/mdx-compile-0.3.2.tgz#b1d0e51c7461da7073262a52af7d168d48c0dcfa"
-  integrity sha512-ICyE0Y2zRUnZDSsVuP0gPS6c+yVmhqT0yV5CfGQrylRkx5+mqe8P5/H/LgEitSEU68762QUUVQrJIjcYzOOjAw==
+"@istok/mdx-compile@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@istok/mdx-compile/-/mdx-compile-0.4.0.tgz#f546c52b261d75229d9aac641ec4652fbc2acb1f"
+  integrity sha512-Jea8RTaq1eAIM4gx7Sk3yvD/cNmGjKjDtPDJ/6UaKC4dsBXQAyf3UKkpIEDbym3Yt3VKhPOt3zzrJ/01bLrq8A==
   dependencies:
     "@babel/core" "^7.12.3"
     "@babel/preset-env" "^7.12.1"
     "@babel/preset-react" "^7.12.5"
-    "@istok/mdx-render" "^0.7.2"
+    "@istok/mdx" "^0.1.0"
     "@mdx-js/mdx" "^1.6.21"
 
-"@istok/mdx-render@^0.7.2":
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/@istok/mdx-render/-/mdx-render-0.7.2.tgz#7b2137cefa7bb78541960206e24fd319304692f6"
-  integrity sha512-k1mT0aCH5+wca5jJOzcV3KaGI9SykGJAGEzoOtjLpPJo5rHLVqbSYmfG5EFDqjlmFsvlEhgWmcapmqwMdxupTg==
+"@istok/mdx-runtime@^0.8.1":
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/@istok/mdx-runtime/-/mdx-runtime-0.8.1.tgz#3089c6db400d0264ee183bc882033ccb5f48b9e7"
+  integrity sha512-TXWUuJ3/10pRyQftyGRSMMZSaZNTpXhZeq2PEfVi6XZUYVbX5ilP3zR9njWEnChMhfWAKEsT3V46c9WscW73pQ==
   dependencies:
     "@istok/lazy-load" "^0.1.1"
+    "@istok/mdx" "^0.1.0"
     "@istok/utils" "^0.1.4"
+    "@mdx-js/react" "^1.6.21"
+
+"@istok/mdx@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@istok/mdx/-/mdx-0.1.0.tgz#b86757688112b44624e7a9cf2fb1bb4b8e290d05"
+  integrity sha512-/pgTBCEEH2cWDQSx06Ket2LiPcQs3GmGsg3j58DNMkF4azmB+C5V8Bfl8RhnAu1Z1oMPmfyiUvFfft8W7cC4bw==
+  dependencies:
+    "@istok/lazy-load" "^0.1.1"
     "@mdx-js/react" "^1.6.21"
 
 "@istok/source-filesystem@^0.4.8":

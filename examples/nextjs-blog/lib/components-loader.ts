@@ -1,4 +1,4 @@
-import { makeComponentsLoader } from "@istok/mdx-render";
+import { makeComponentsLoader } from "@istok/mdx";
 
 export function asyncComponents(componentsNames: string[]) {
   return makeComponentsLoader(componentsNames, (component) =>

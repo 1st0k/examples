@@ -78,7 +78,7 @@ export const blog = new Blog<
             size: metadata.content.length,
             components: (metadata.metadata.components ?? "")
               .split(",")
-              .filter((s: string) => s.length),
+              .filter((s) => s.length),
           });
         },
       };

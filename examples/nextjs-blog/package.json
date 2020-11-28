@@ -10,8 +10,8 @@
   "dependencies": {
     "@istok/blog": "^0.3.0",
     "@istok/core": "^0.5.7",
-    "@istok/mdx-compile": "^0.3.2",
-    "@istok/mdx-render": "^0.7.2",
+    "@istok/mdx-compile": "^0.4.0",
+    "@istok/mdx-runtime": "^0.8.1",
     "@istok/source-filesystem": "^0.4.8",
     "@istok/source-firebase": "^0.4.8",
     "date-fns": "^2.11.1",
